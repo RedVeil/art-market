@@ -1,0 +1,10 @@
+{
+  "name": "art-market",
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "puppeteer": "^22.12.0"
+  }
+}
