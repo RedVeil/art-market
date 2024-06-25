@@ -36,7 +36,7 @@ const wait = (milliseconds) => {
 
     wait(10_000)
 
-    for (let n = 608; n < collectors.length; n++) {
+    for (let n = 1077; n < collectors.length; n++) {
       await page.goto(`https://www.larryslist.com/collector/name/${collectors[n].label}/${collectors[n].value}/`, {
         waitUntil: 'networkidle2'
       });
