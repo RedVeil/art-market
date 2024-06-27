@@ -36,7 +36,7 @@ const wait = (milliseconds) => {
 
     wait(10_000)
 
-    for (let n = 1077; n < collectors.length; n++) {
+    for (let n = 1080; n < collectors.length; n++) {
       await page.goto(`https://www.larryslist.com/collector/name/${collectors[n].label}/${collectors[n].value}/`, {
         waitUntil: 'networkidle2'
       });
@@ -44,20 +44,23 @@ const wait = (milliseconds) => {
       const bodyHTML = await page.evaluate(() => {
         return document.body.innerHTML;
       });
+      try {
+        const $ = cheerio.load(bodyHTML);
+        const body = $('#bodycontainer').html()
+        // getGenres($)
+        // getOrigins($)
+        // getMediums($)
 
-      const $ = cheerio.load(bodyHTML);
-      const body = $('#bodycontainer').html()
-      // getGenres($)
-      // getOrigins($)
-      // getMediums($)
-
-      fs.writeFile(`./pages/${collectors[n].value}.html`, body, err => {
-        if (err) {
-          console.log('Error writing to file', err);
-        } else {
-          console.log(`Results saved to ./pages/${collectors[n].value}.html`);
-        }
-      });
+        fs.writeFile(`./pages/${collectors[n].value}.html`, body, err => {
+          if (err) {
+            console.log('Error writing to file', err);
+          } else {
+            console.log(`Results saved to ./pages/${collectors[n].value}.html`);
+          }
+        });
+      } catch (e) {
+        console.log("Error happend: ", e)
+      }
     }
 
     // Close the browser
